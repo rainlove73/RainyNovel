@@ -15,6 +15,54 @@
  * 2. 优化雨蔡部分注释，使其更直观明了
  * 3. 修复html暗色模式下下载小说页面不显示封面的问题
  * 4. 基于对原作者的尊重，web文件默认文档地址为：https://github.com/helloplhm-qwq
+  
+## 项目背景
+本项目为 [番茄Web模块]的 Python 重构实现，在完整保留原有功能和接口的基础上进行扩展。
+
+## 部署指南
+
+### 环境配置
+```bash
+# 方案一：使用 Poetry 管理
+poetry install --no-dev
+
+# 方案二：使用 pip 直接安装
+pip install -r requirements.txt
+```
+
+### 启动方式
+```bash
+# 标准启动
+python main.py
+
+# 使用 PM2 进程管理
+pm2 start npm --name "pyfqweb" -- start
+```
+
+## API 接口规范
+
+### 核心端点
+
+| 功能分类 | 端点路径                                 | HTTP 方法 | 参数说明                                                                 |
+|----------|------------------------------------------|-----------|--------------------------------------------------------------------------|
+| 搜索     | `/search`                                | GET       | `query`: 关键词<br>`offset=0`: 分页偏移量（计算式：(page-1)*10）<br>`tab_type=3`: 搜索类型（默认书籍）           |
+| 书籍元数据 | `/info`<br>`/detail`                   | GET       | `book_id`: 书籍唯一标识符                                                |
+| 目录结构 | `/catalog`<br>`/directory/all_items`    | GET       | `book_id`: 书籍唯一标识符                                                |
+| 内容获取 | `/content`                              | GET       | `item_id`: 章节ID<br>`text_mode=false`: [bool]纯文本模式<br>`image_mode=true`: [bool]图片包含 |
+| 批量操作 | `/multi-content`<br>`/multi-detail`     | GET       | `book_id`: 书籍ID（必须）<br>`item_ids`: 逗号分隔的ID列表（仅multi-content）                        |
+| 正文预览 | `/item-summary`                         | GET       | `book_id`: 书籍ID<br>`item_ids`: 逗号分隔的章节ID列表                   |
+| 听书服务 | `/audio`                                | GET       | `item_ids`: 音频ID列表                                                   |
+| 短剧服务 | `/video`                                | GET       | `item_ids`: 视频ID列表                                                   |
+| 接口信息 | `/self-info`                            | GET       | 无                                       |
+
+### 扩展接口
+```markdown
+对于未明确列出的API端点，支持通过以下方式调用：
+- 请求路径：保持与官方API一致
+- 参数规范：遵循原始请求参数
+- 请求体格式：保持与官方API一致
+```
+
 
 # -项目协议-
 
