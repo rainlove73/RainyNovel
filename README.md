@@ -3,6 +3,8 @@
 
   通过web工具，实现番茄小说免费网页阅读，无需客户端，支持小说下载功能。
 
+  可用完整地址：https://static.v2.sukimon.me:8443/fqxzq-test.html
+
 # -开源来源-
   由雨萘（Naiy_）二次深度重构，仓库主页地址：https://github.com/helloplhm-qwq，未获得原作者授权，如有不妥，请联系删除
   
